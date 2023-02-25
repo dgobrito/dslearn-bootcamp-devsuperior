@@ -27,3 +27,6 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (3, 3);
   INSERT INTO TB_SECTION (title, description, position, img_uri, resource_id, prerequisite_id) VALUES ('Capítulo 1', 'Neste capítulo vamos começar', 1, 'https://cuboup.s3.sa-east-1.amazonaws.com/br/wp-content/uploads/2022/08/14174056/Terraform-Course-Image.png', 1, NULL);
   INSERT INTO TB_SECTION (title, description, position, img_uri, resource_id, prerequisite_id) VALUES ('Capítulo 2', 'Neste capítulo vamos continuar', 2, 'https://cuboup.s3.sa-east-1.amazonaws.com/br/wp-content/uploads/2022/08/14174056/Terraform-Course-Image.png', 1, 1);
   INSERT INTO TB_SECTION (title, description, position, img_uri, resource_id, prerequisite_id) VALUES ('Capítulo 3', 'Neste capítulo vamos finalizar', 3, 'https://cuboup.s3.sa-east-1.amazonaws.com/br/wp-content/uploads/2022/08/14174056/Terraform-Course-Image.png', 1, 2);
+  
+  INSERT INTO TB_ENROLLMENT (user_id, offer_id, enroll_moment, refund_moment, available, only_update) VALUES (1, 1, TIMESTAMP WITH TIME ZONE '2020-11-20T13:00:00Z', NULL, true, false);
+  INSERT INTO TB_ENROLLMENT (user_id, offer_id, enroll_moment, refund_moment, available, only_update) VALUES (2, 1, TIMESTAMP WITH TIME ZONE '2020-11-20T13:00:00Z', NULL, true, false);
