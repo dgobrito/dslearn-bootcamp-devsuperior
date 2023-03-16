@@ -36,7 +36,7 @@ public abstract class Lesson implements Serializable {
 	
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "TB_LESSONS_DONE",
-		joinColumns = @JoinColumn(name = "leson_id"),
+		joinColumns = @JoinColumn(name = "lesson_id"),
 		inverseJoinColumns = {
 				@JoinColumn(name = "user_id"),
 				@JoinColumn(name = "offer_id")
