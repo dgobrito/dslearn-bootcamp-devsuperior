@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -46,6 +47,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Autowired
 	private JwtTokenEnhancer tokenEnhancer;
 	
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 		security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
@@ -58,8 +62,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		.withClient(clientId) // Nome da aplicacao ou clientId
 		.secret(passwordEncoder.encode(clientSecret)) // Senha da aplicacao
 		.scopes("read", "write") // Acesso de leitura e escrita
-		.authorizedGrantTypes("password") // Tipo de acesso = senha
-		.accessTokenValiditySeconds(jwtDuration); // Tempo de expiração do token em segundos 
+		.authorizedGrantTypes("password", "refresh_token") // Tipo de acesso = senha
+		.accessTokenValiditySeconds(jwtDuration) // Tempo de expiração do token em segundos
+		.refreshTokenValiditySeconds(jwtDuration);
 	}
 
 	// Quem vai autorizar e qual o formato do token
@@ -71,6 +76,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		endpoints.authenticationManager(authenticationManager)
 			.tokenStore(tokenStore)
 			.accessTokenConverter(accessTokenConverter)
-			.tokenEnhancer(chain);
+			.tokenEnhancer(chain)
+			.userDetailsService(userDetailsService);
 	}	
 }
